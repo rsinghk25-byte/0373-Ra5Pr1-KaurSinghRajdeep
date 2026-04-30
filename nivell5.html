@@ -1,0 +1,86 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:template match="/">
+<html>
+<head>
+<title>Biblioteca — Ordenació</title>
+<style> body { font-family: sans-serif; padding: 20px; } h2 { margin-top: 30px; } ul { line-height: 2; } table { border-collapse: collapse; width: 100%; margin-top: 10px; } th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; } th { background-color: #f0f0f0; } </style>
+</head>
+<body>
+
+<h2>Exercici 1 — Ordenats per any de publicació</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre">
+<xsl:sort select="any" data-type="number" order="ascending"/>
+<li>
+<xsl:value-of select="titol"/>
+(
+<xsl:value-of select="any"/>
+)
+</li>
+</xsl:for-each>
+</ul>
+
+<h2>Exercici 2 — Ordenats per títol (A → Z)</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre">
+<xsl:sort select="titol" order="ascending"/>
+<li>
+<xsl:value-of select="titol"/>
+</li>
+</xsl:for-each>
+</ul>
+
+<h2>Exercici 3 — Ordenats per preu (més car → més barat)</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre">
+<xsl:sort select="preu" data-type="number" order="descending"/>
+<li>
+<xsl:value-of select="titol"/>
+—
+<xsl:value-of select="preu"/>
+€
+</li>
+</xsl:for-each>
+</ul>
+
+<h2>Exercici 4 — Taula ordenada per any</h2>
+<table>
+<tr>
+<th>Any</th>
+<th>Títol</th>
+<th>Autor</th>
+<th>Preu</th>
+</tr>
+<xsl:for-each select="/biblioteca/llibre">
+<xsl:sort select="any" data-type="number" order="ascending"/>
+<tr>
+<td>
+<xsl:value-of select="any"/>
+</td>
+<td>
+<xsl:value-of select="titol"/>
+</td>
+<td>
+<xsl:value-of select="autor"/>
+</td>
+<td>
+<xsl:value-of select="preu"/>
+€
+</td>
+</tr>
+</xsl:for-each>
+</table>
+
+<h2>Exercici 5 — Disponibles ordenats per títol</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre[@estat='disponible']">
+<xsl:sort select="titol" order="ascending"/>
+<li>
+<xsl:value-of select="titol"/>
+</li>
+</xsl:for-each>
+</ul>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
