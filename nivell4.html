@@ -1,0 +1,79 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="/">
+<html>
+<head>
+<title>Biblioteca — Filtres i condicions</title>
+<style> body { font-family: sans-serif; padding: 20px; } h2 { margin-top: 30px; } ul { line-height: 2; } .disponible { color: green; } .prestat { color: red; } .antic { color: #888; font-size: 0.85em; margin-left: 8px; } </style>
+</head>
+<body>
+
+<h2>Exercici 1 — Llibres disponibles</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre[@estat='disponible']">
+<li>
+<xsl:value-of select="titol"/>
+</li>
+</xsl:for-each>
+</ul>
+
+<h2>Exercici 2 — Llibres amb preu superior a 12 €</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre[preu > 12]">
+<li>
+<xsl:value-of select="titol"/>
+—
+<xsl:value-of select="preu"/>
+€
+</li>
+</xsl:for-each>
+</ul>
+
+<h2>Exercici 3 — Identificació de llibres antics (anteriors a 1980)</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre">
+<li>
+<xsl:value-of select="titol"/>
+(
+<xsl:value-of select="any"/>
+)
+<xsl:if test="any < 1980">
+<span class="antic">— Llibre antic</span>
+</xsl:if>
+</li>
+</xsl:for-each>
+</ul>
+
+<h2>Exercici 4 — Estat de cada llibre</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre">
+<li>
+<xsl:value-of select="titol"/>
+—
+<xsl:choose>
+<xsl:when test="@estat='prestat'">
+<span class="prestat">En préstec</span>
+</xsl:when>
+<xsl:otherwise>
+<span class="disponible">Disponible</span>
+</xsl:otherwise>
+</xsl:choose>
+</li>
+</xsl:for-each>
+</ul>
+
+<h2>Exercici 5 — Gèneres: fantasia i distopia</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre[genere='fantasia' or genere='distopia']">
+<li>
+<xsl:value-of select="titol"/>
+(
+<xsl:value-of select="genere"/>
+)
+</li>
+</xsl:for-each>
+</ul>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
