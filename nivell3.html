@@ -1,0 +1,56 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:template match="/">
+<html>
+<head>
+<title>Biblioteca — Llistes i taules</title>
+<style> body { font-family: sans-serif; padding: 20px; } h2 { margin-top: 30px; } table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; } th { background-color: #f0f0f0; } </style>
+</head>
+<body>
+<h2>Exercici 1 — Títols dels llibres</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre">
+<li>
+<xsl:value-of select="titol"/>
+</li>
+</xsl:for-each>
+</ul>
+<h2>Exercici 2 — Títol i autor</h2>
+<ul>
+<xsl:for-each select="/biblioteca/llibre">
+<li>
+<xsl:value-of select="titol"/>
+<xsl:value-of select="autor"/>
+</li>
+</xsl:for-each>
+</ul>
+<h2>Exercici 3 i 4 — Taula completa</h2>
+<table>
+<tr>
+<th>Títol</th>
+<th>Autor</th>
+<th>Any</th>
+<th>Preu</th>
+</tr>
+<xsl:for-each select="/biblioteca/llibre">
+<tr>
+<td>
+<xsl:value-of select="titol"/>
+</td>
+<td>
+<xsl:value-of select="autor"/>
+</td>
+<td>
+<xsl:value-of select="any"/>
+</td>
+<td>
+<xsl:value-of select="preu"/>
+€
+<!-- No pongo los nombres para que puedan poner cualquira (no me se libros) -->
+</td>
+</tr>
+</xsl:for-each>
+</table>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
