@@ -1,0 +1,51 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+<xsl:template match="/">
+<html>
+<head>
+<title>Biblioteca — Transformacions riques</title>
+<style> body { font-family: sans-serif; padding: 20px; } h2 { margin-top: 30px; } .disponible { background-color: #d4edda; color: #155724; padding: 6px 12px; margin: 4px 0; border-left: 4px solid #28a745; border-radius: 3px; } .prestat { background-color: #f8d7da; color: #721c24; padding: 6px 12px; margin: 4px 0; border-left: 4px solid #dc3545; border-radius: 3px; } .resum { margin-top: 40px; padding: 15px; background: #f0f0f0; border-radius: 6px; } </style>
+</head>
+<body>
+
+<h2>Exercici 3 — Llibres amb classe CSS per estat</h2>
+<xsl:for-each select="/biblioteca/llibre">
+<xsl:choose>
+<xsl:when test="@estat='disponible'">
+<div class="disponible">
+<strong>
+<xsl:value-of select="titol"/>
+</strong>
+
+<xsl:value-of select="autor"/>
+
+</div>
+</xsl:when>
+<xsl:otherwise>
+<div class="prestat">
+<strong>
+<xsl:value-of select="titol"/>
+</strong>
+
+<xsl:value-of select="autor"/>
+
+</div>
+</xsl:otherwise>
+</xsl:choose>
+</xsl:for-each>
+
+<div class="resum">
+<p>
+<strong>Total de llibres:</strong>
+<xsl:value-of select="count(/biblioteca/llibre)"/>
+</p>
+<p>
+<strong>Preu mitjà:</strong>
+<xsl:value-of select="sum(/biblioteca/llibre/preu) div count(/biblioteca/llibre)"/>
+€
+</p>
+</div>
+</body>
+</html>
+</xsl:template>
+</xsl:stylesheet>
